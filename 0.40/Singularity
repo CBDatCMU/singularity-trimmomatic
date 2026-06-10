@@ -12,10 +12,9 @@ From: debian:bookworm
     export DEBIAN_FRONTEND=noninteractive
     apt-get update -qq
     apt-get -y install ca-certificates wget unzip default-jre-headless
-    cd /opt
+    mkdir -p /opt/trimmomatic
+    cd /opt/trimmomatic
     wget -nc https://github.com/usadellab/Trimmomatic/releases/download/v0.40/Trimmomatic-0.40.zip
     unzip Trimmomatic-0.40.zip && rm Trimmomatic-0.40.zip
-    mkdir -p /opt/trimmomatic
-    mv -v Trimmomatic-0.40/*.jar /opt/trimmomatic
-    rm -rf Trimmomatic-0.40
     rm -rf /var/cache/apt/*
+
