@@ -1,0 +1,11 @@
+#!/bin/bash
+
+VERSION=0.40
+PACKAGE=trimmomatic
+DIRECTORY=$(dirname $0)
+
+if [ -f /containers/loader ]; then
+  source /containers/loader
+fi
+
+singularity exec $OPTIONS $DIRECTORY/singularity-$PACKAGE-$VERSION.sif java -jar /opt/trimmomatic/trimmomatic-0.40.jar "$@"

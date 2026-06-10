@@ -1,0 +1,21 @@
+Bootstrap: docker
+From: debian:bookworm
+
+%labels
+    MAINTAINER icaoberg, b0nn1eLa1
+    EMAIL icaoberg@psc.edu, bonniela@andrew.cmu.edu
+    SUPPORT help@psc.edu
+    REPOSITORY https://github.com/CBDatCMU/singularity-trimmomatic
+    VERSION 0.40
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update -qq
+    apt-get -y install ca-certificates wget unzip default-jre-headless
+    cd /opt
+    wget -nc https://github.com/usadellab/Trimmomatic/releases/download/v0.40/Trimmomatic-0.40.zip
+    unzip Trimmomatic-0.40.zip && rm Trimmomatic-0.40.zip
+    mkdir -p /opt/trimmomatic
+    mv -v Trimmomatic-0.40/*.jar /opt/trimmomatic
+    rm -rf Trimmomatic-0.40
+    rm -rf /var/cache/apt/*
