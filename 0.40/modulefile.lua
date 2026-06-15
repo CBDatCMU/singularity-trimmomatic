@@ -38,7 +38,7 @@ Tools
 
 local package  = "trimmomatic"
 local version  = "0.40"
-local root     = os.getenv("CONTAINERS_ROOT") or "/containers"
+local root     = os.getenv("CONTAINERS_ROOT") or "/shared/containers"
 local base     = pathJoin(root, package, version)
 
 conflict("trimmomatic")
