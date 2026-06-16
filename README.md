@@ -16,9 +16,9 @@ Copy the
 * `SIF` file
 * and the `trimmomatic` script
 
-to `/containers/trimmomatic/0.40`.
+to `/shared/containers/trimmomatic/0.40`.
 
-Copy the file `modulefile.lua` to `/opt/ohpc/pub/modulefiles/trimmomatic` as `0.40.lua`.
+Copy the file `modulefile.lua` to `/shared/containers/modulefiles/trimmomatic` as `0.40.lua`.
 
 ## Building the image using the recipe
 
