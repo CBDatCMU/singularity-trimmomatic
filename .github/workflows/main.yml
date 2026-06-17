@@ -39,3 +39,33 @@ jobs:
            fi
          fi
         done
+
+    - name: Collect SIF artifacts
+      run: |
+        mkdir -p artifacts
+        find . -name "*.sif" -exec cp {} artifacts/ \;
+
+    - name: Upload SIF artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: sif-files
+        path: artifacts/*.sif
+
+    - name: Publish release
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        for SIF in artifacts/*.sif; do
+          FILENAME=$(basename "$SIF")
+          VERSION=$(echo "$FILENAME" | grep -oP '\d+\.\d+\.\d+\.\d+')
+          TAG="v${VERSION}"
+
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" "$SIF" --clobber
+          else
+            gh release create "$TAG" "$SIF" \
+              --title "$VERSION" \
+              --notes "Singularity container for GATK ${VERSION}"
+          fi
+        done
